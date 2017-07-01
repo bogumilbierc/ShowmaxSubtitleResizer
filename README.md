@@ -9,7 +9,13 @@ You love Showmax. You love videos. You love subtitles. You are blind. Subtitles 
 - Extension is checking if Showmax video is currently playing and if so, then it applies the settings.
 - Subitles settings are automatically synced between Your devices (if You are logged in Chrome).
 
-## Installing this extension
+## Installing the extenstion from Chrome Store
+Use the link below and click "Add to Chrome"
+```
+https://chrome.google.com/webstore/detail/showmaxsubtitleresizer/kakagkojdldhkbejlapmeicfihdkoddk
+```
+
+## Installing this extension from sources
 1. Download code from GitHub:
 ![screen](https://github.com/bogumilbierc/ShowmaxSubtitleResizer/blob/master/instruction/Download.PNG)
 2. Unzip it.
