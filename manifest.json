@@ -8,9 +8,20 @@
     "scripts": ["js/background.js"],
     "persistence": false
   },
+  "icons": {
+		"32": "icons/32.png",
+		"48": "icons/48.png",
+		"128": "icons/128.png",
+		"490": "icons/490.png"
+  },
 
   "browser_action": {
-    "default_icon": "icon.png",
+	"default_icon": {
+		"32": "icons/32.png",
+		"48": "icons/48.png",
+		"128": "icons/128.png",
+		"490": "icons/490.png"
+	},
     "default_popup": "popup.html",
 	"default_title": "Resize subtitles with me"
   },
