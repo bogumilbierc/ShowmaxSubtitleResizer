@@ -1,14 +1,13 @@
-# YouTubeVideoHater
-Chrome extension. Lets You define videos You hate (by keywords) and then they will be automatically skipped.
+# ShowmaxSubtitleResizer
+Chrome extension. Lets You define font size and line height for Showmaxx subtitles and then it automatically applies the settings..
 
 # Intro
-Lets imagine that You hate Justin Bieber. You hate is so much, that You cannot stand a video on YouTube that contains his voice.
-Up to now, You would need to go to YouTube tab in chrome and change video, however this is no longer the case! This app will do it for You!
+You love Showmax. You love videos. You love subtitles. You are blind. Subtitles are small. You want the subtitles to be bigger. You want to see them. You try ```ctrl++``. You are using Chrome on Linux. Showmax page get broken. Subtitles look like crap. You want subtitles to be nice. You sacrifice a goat. It didn't help. You want to scale only the subtitles. You notice that they are div over video. You tweak the CSS. You are happy. No goat is being sacrificed. Next day You want to watch another video. Subtitles are small. You are not happy. You sacrifice a goat. It didn't help. You need to repeat the work again. You look for solution. You find this extension. You install it. You are happy. Goat is happy. Goat is not sacrificed.
 
 # How it works
-- User is defining list of keywords.
-- Extension is checking if title of YouTube video that is played right now contains any of keywords. If yes, then video is switched to next (as You would press next button in YouTube player).
-- List of hated keywords is automatically synced between Your devices (if You are logged in Chrome).
+- User is defining ```font-size``` and ```line-height``` for subtitles.
+- Extension is checking if Showmax video is currently playing and if so, then it applies the settings.
+- Subitles settings are automatically synced between Your devices (if You are logged in Chrome).
 
 ## Installing this extension
 1. Download code from GitHub:
@@ -24,10 +23,9 @@ chrome://extensions/
 6. Select folder with unzipped extension.
 7. Done! :)
 
-## Defining keywords
-1. Click on the "dislike" button in Extensions toolbar:
+## Defining settings
+1. Click on the "subtitle" button in Extensions toolbar:
 ![screen](https://github.com/bogumilbierc/YouTubeVideoHater/blob/master/instruction/ExtensionsToolbar.PNG)
-2. Type a keyword and click "Hate it!":
+2. Type settings and click save
 ![screen](https://github.com/bogumilbierc/YouTubeVideoHater/blob/master/instruction/Preview.PNG)
-3. Keyword will be added to list at the bottom of the widget.
-4. U can remove keywords You no longer want to hate. :)
+3. Enjoy
