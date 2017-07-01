@@ -1,103 +1,71 @@
-var MINIMUM_LENGTH_OF_KEYWORD_TO_HATE = 3;
-var HATED_KEYWORDS_TABLE_TBODY = "#hated-keywords-tbody";
-var KEYWORD_TO_HATE_INPUT = "#keyword-to-hate";
+var FONT_SIZE_INPUT = "#font-size";
+var LINE_HEIGHT_INPUT = "#line-height";
 
-var hatedKeywords = [];
+var subtitleSettings = {};
 
 $(document).ready(function(){
-	$("#hate-new-button").click(function(){
-		hateNewKeyword();
+	$("#save-settings").click(function(){
+		saveSettings();
 	});
 	
-	$(KEYWORD_TO_HATE_INPUT).keyup(function(event){
+	$(FONT_SIZE_INPUT).keyup(function(event){
 		if(event.keyCode == 13){
-			hateNewKeyword();
+			saveSettings();
 		}
 	});
 	
-	chrome.storage.sync.get("hatedKeywords", function (obj) {
-		if(obj !== null && obj.hasOwnProperty('hatedKeywords')){
-			var hatedKeywordsJSON = obj['hatedKeywords'];
-			hatedKeywords = JSON.parse(hatedKeywordsJSON);
-			fillHatedKeywordsTable();
+	$(LINE_HEIGHT_INPUT).keyup(function(event){
+		if(event.keyCode == 13){
+			saveSettings();
 		}
 	});
 	
-	$(HATED_KEYWORDS_TABLE_TBODY).on("click", ".delete-button", function(event){
-		var keywordToRemove = $(event.target).attr('data-keyword');
-		deleteKeyword(keywordToRemove);
+	chrome.storage.sync.get("subtitleSettings", function (obj) {
+		if(obj !== null && obj.hasOwnProperty('subtitleSettings')){
+			var hatedKeywordsJSON = obj['subtitleSettings'];
+			subtitleSettings = JSON.parse(hatedKeywordsJSON);
+			showCurrentSettings();
+		}
 	});
+
 });
 
-function fillHatedKeywordsTable(){
-	clearHatedKeywordsTable();
-	
-	$(hatedKeywords).each(function(i, item){
-		var rowHtml = buildTableRowWithKeyword(item);
-		addRowToHatedKeywordsTable(rowHtml);
-	});
-}
-
-function hateNewKeyword(){
-	var keywordToHate = $(KEYWORD_TO_HATE_INPUT).val();
-	if(canThisKeywordBeHated(keywordToHate)){
-		keywordToHate = keywordToHate.toLowerCase();
-		var newKeywordRowHtml = buildTableRowWithKeyword(keywordToHate);
-		addRowToHatedKeywordsTable(newKeywordRowHtml);
-		hatedKeywords.push(keywordToHate);
-		saveChanges();
-		$(KEYWORD_TO_HATE_INPUT).val('');
-	}
-
-}
-
-function clearHatedKeywordsTable(){
-	$(HATED_KEYWORDS_TABLE_TBODY).empty();
-}
-
-function addRowToHatedKeywordsTable(rowHtml){
-	$(HATED_KEYWORDS_TABLE_TBODY).append(rowHtml);
-}
-
-function buildTableRowWithKeyword(keyword){
-	var rowHtml = '<tr class="keyword-row" data-keyword="' + keyword + '">';
-	rowHtml += '<td class="keyword-text-td">' + keyword + '</td>';
-	rowHtml += '<td><button data-keyword="' + keyword + '" class="delete-button">delete</button></td>';
-	rowHtml += '</tr>';
-	return rowHtml;
-}
-
-function canThisKeywordBeHated(keyword){
-	if(keyword !== '' && keyword!==' ' && keyword.length >= MINIMUM_LENGTH_OF_KEYWORD_TO_HATE){
-		return true;
-	}
-	alert("Keyword cannot be blank and must have at least 3 characters.");
-	return false;
-}
-
-function deleteKeyword(keyword){
-	var indexOfKeywordToRemove = hatedKeywords.indexOf(keyword);
-	hatedKeywords.splice(indexOfKeywordToRemove, 1);
-	saveChanges();
-	fillHatedKeywordsTable();
-}
-
-function deleteTableRowWithKeyword(keyword){
-	$(".keyword-row").each(function(i, item){
-		var rowKeyword = $(item).attr('data-keyword');
-		if(rowKeyword == keyword){
-			$(item).remove();
+function showCurrentSettings(){
+	if(subtitleSettings != null){
+		if(subtitleSettings.hasOwnProperty("fontSize")){
+			$(FONT_SIZE_INPUT).val(subtitleSettings.fontSize);
+		} else {
+			$(FONT_SIZE_INPUT).val(4);
 		}
-	});
+		
+		if(subtitleSettings.hasOwnProperty("lineHeight")){
+			$(LINE_HEIGHT_INPUT).val(subtitleSettings.lineHeight);
+		} else {
+			$(LINE_HEIGHT_INPUT).val(1.5);
+		}
+	}
+
 }
+
+function saveSettings(){
+	var fontSize = $(FONT_SIZE_INPUT).val();
+	var lineHeight = $(LINE_HEIGHT_INPUT).val();
+	
+	subtitleSettings.fontSize = fontSize;
+	subtitleSettings.lineHeight = lineHeight;
+	
+	saveChanges();
+	
+}
+
 
 function saveChanges() {
 		// stringify all keywords that we want to hate
-		var valueToSave = JSON.stringify(hatedKeywords);
+		var valueToSave = JSON.stringify(subtitleSettings);
 
         // Save it using the Chrome extension storage API.
-        chrome.storage.sync.set({'hatedKeywords': valueToSave}, function() {
+        chrome.storage.sync.set({'subtitleSettings': valueToSave}, function() {
             // Notify that we saved.
-			console.log('Settings saved');
+			console.log('ShowmaxSubtitleResizer: Settings saved');
         });
 }

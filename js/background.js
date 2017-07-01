@@ -7,11 +7,10 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
         // Fires only when details.url === currentTab.url
         chrome.tabs.get(details.tabId, function(tab) {
 			var tabUrl = tab.url;
-			if(tabUrl.indexOf("youtube") !== -1){
-				
-				
-				console.log("Sending message to YouTube tab");
-				chrome.tabs.sendMessage(tab.id, {greeting: "HateThisVideo"}, function(response) {
+			if(tabUrl.indexOf("showmax") !== -1){
+		
+				console.log("Sending message to Showmax tab");
+				chrome.tabs.sendMessage(tab.id, {greeting: "Showmax"}, function(response) {
 					console.log(response.farewell);
 				});
 				
